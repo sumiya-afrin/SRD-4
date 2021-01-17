@@ -9,5 +9,14 @@
     $password = $_POST['password'];
     $role = strtolower($_POST['role']);
     
-    //$store = "INSERT "
+    $store = "INSERT INTO user (id, first_name, last_name, program_id, email, password, role) VALUES
+                ('$id', '$fName', '$lName', '$prog', '$email', '$password' , '$role')";
+
+    if($mysql->query($store)){
+        echo "done";
+    }else{
+        echo $mysql->error;
+    }
+
+    
 ?>

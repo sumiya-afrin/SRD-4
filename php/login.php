@@ -1,5 +1,0 @@
-<?php
-    require 'mysql.php';
-    
-        
-?>

@@ -33,8 +33,7 @@
         program_id VARCHAR(20) NULL,
         email VARCHAR(250) NOT NULL UNIQUE,
         password VARCHAR(50) NOT NULL,
-        role VARCHAR(10) NOT NULL,
-        CONSTRAINT FK_program_id FOREIGN KEY (program_id) REFERENCES program(id)
+        role VARCHAR(10) NOT NULL
     )";
     if($mysql->query($user) == FALSE){
         echo $mysql->error.'<br>';
