@@ -1,3 +1,6 @@
+<?php
+    require '../php/middleware.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,25 +46,25 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="users.html">
+                <a class="nav-link" href="users.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Users</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="add-user.html">
+                <a class="nav-link" href="add-user.php">
                     <i class="fas fa-fw fa-user-plus"></i>
                     <span>Add User</span></a>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="programs.html">
+                <a class="nav-link" href="programs.php">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Programs</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="add-program.html">
+                <a class="nav-link" href="add-program.php">
                     <i class="fas fa-fw fa-folder-plus"></i>
                     <span>Add Program</span></a>
             </li>
@@ -165,7 +168,7 @@
                                             <td>Computer Science and Engineering</td>
                                             <td>Modern Science</td>
                                             <td>112</td>
-                                            <td align="center"><a href="program-single.html?id=1" type="button" class="btn btn-info">Open</a></td>
+                                            <td align="center"><a href="program-single.php?id=1" type="button" class="btn btn-info">Open</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

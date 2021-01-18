@@ -1,3 +1,6 @@
+<?php
+    require '../php/middleware.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,25 +47,25 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="users.html">
+                <a class="nav-link" href="users.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Users</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="add-user.html">
+                <a class="nav-link" href="add-user.php">
                     <i class="fas fa-fw fa-user-plus"></i>
                     <span>Add User</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="programs.html">
+                <a class="nav-link" href="programs.php">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Programs</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="add-program.html">
+                <a class="nav-link" href="add-program.php">
                     <i class="fas fa-fw fa-folder-plus"></i>
                     <span>Add Program</span></a>
             </li>
@@ -139,7 +142,7 @@
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">List of Courses</h6>
                             <div class="dropdown no-arrow">
-                                <a class="btn btn-info" href="add-course.html" role="button" id="dropdownMenuLink" aria-haspopup="true">
+                                <a class="btn btn-info" href="add-course.php" role="button" id="dropdownMenuLink" aria-haspopup="true">
                                     Add Course
                                 </a>
                             </div>
@@ -168,7 +171,7 @@
                                             <td>CSE-101</td>
                                             <td>Introduction to C Programming</td>
                                             <td>3.00</td>
-                                            <td align="center"><a href="course-single.html" type="button" class="btn btn-info">Open</a></td>
+                                            <td align="center"><a href="course-single.php" type="button" class="btn btn-info">Open</a></td>
                                         </tr>
                                     </tbody>
                                 </table>

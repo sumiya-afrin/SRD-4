@@ -13,9 +13,9 @@
                 ('$id', '$fName', '$lName', '$prog', '$email', '$password' , '$role')";
 
     if($mysql->query($store)){
-        echo "done";
+        header("Location: ../admnin/add-user.php");
     }else{
-        echo $mysql->error;
+        header("Location: ../admnin/add-user.php");
     }
 
     

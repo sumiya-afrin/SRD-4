@@ -1,3 +1,6 @@
+<?php
+    require '../php/middleware.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,13 +42,13 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" href="entry-marks.html">
+                <a class="nav-link" href="entry-marks.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Marks Entry - Individual</span></a>
             </li>
 
             <li class="nav-item active">
-                <a class="nav-link" href="entry-marks-mass.html">
+                <a class="nav-link" href="entry-marks-mass.php">
                     <i class="fas fa-fw fa-user"></i>
                     <span>Marks Entry - Mass</span></a>
             </li>
