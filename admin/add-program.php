@@ -66,6 +66,18 @@
                     <span>Add Program</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="courses.php">
+                    <i class="fas fa-fw fa-folder-plus"></i>
+                    <span>Courses</span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="add-course.php">
+                    <i class="fas fa-fw fa-folder-plus"></i>
+                    <span>Add Course</span></a>
+            </li>
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -136,36 +148,38 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form class="user">
+                            <form class="program" action="../php/add-program.php" method="POST">
                                 <div class="form-group row">
                                     <div class="col-sm-4 mb-4 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" class="form-control form-control-user" name="program_id"
                                             placeholder="Program ID">
                                     </div>
                                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                        <input type="text" class="form-control form-control-user" name="program_name"
                                             placeholder="Program name">
                                     </div>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                        <input type="text" class="form-control form-control-user" name="school"
                                             placeholder="School">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"
-                                            id="exampleInputPassword" value="PLO1">
-                                    </div>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="PLO Name">
-                                    </div>
-                                    <div class="col-sm-1 mb-3" align="center">
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-fw fa-plus"></i></button>
+                                <div id="plos-holder">
+                                    <div class="form-group row">
+                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="plo1" placeholder="PLO index" value="PLO 1" readonly>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="title1" placeholder="PLO Name" name="title1">
+                                        </div>
+                                        <div class="col-sm-1 mb-3" align="center">
+                                            <button type="button" class="btn btn-primary add-plo" onclick="add_plo();"><i class="fas fa-fw fa-plus"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div align="center">
-                                    <buttn type="button" class="btn btn-primary btn-user">Add Program</buttn>
+                                    <buttn type="submit" class="btn btn-primary btn-program">Add Program</buttn>
                                 </div>
                             </form>
                         </div>
@@ -227,6 +241,32 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <script>
+        $i = 2;
+        function add_plo(){
+            console.log('clicked');
+            $(".add-plo").hide();
+            $new = `<div class="form-group row">
+                        <div class="col-sm-4 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user"
+                                id="plo`+$i+`" placeholder="PLO index" value="PLO`+$i+`" readonly>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control form-control-user"
+                                id="title`+$i+`" placeholder="PLO Name" name="title`+$i+`">
+                        </div>
+                        <div class="col-sm-1 mb-3" align="center">
+                            <button type="button" class="btn btn-primary add-plo" onclick="add_plo();"><i class="fas fa-fw fa-plus"></i></button>
+                        </div>
+                    </div>`;
+            $("#plos-holder").append($new);
+            $i++;
+        };
+        $(".btn-program").click(function(){
+            $(".program").submit();
+        });
+    </script>
 
 </body>
 

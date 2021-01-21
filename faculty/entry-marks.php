@@ -123,36 +123,54 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form class="user">
+                            <form class="marks" action="../php/add-marks.php" method="POST">
                                 <div class="form-group row">
-                                    <div class="col-sm-4 mb-4 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="semester" name="semester"
                                             placeholder="Semester">
                                     </div>
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="course_id" name="course_id"
                                             placeholder="Course ID">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Exam Name">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user"
-                                            id="exampleInputPassword" value="Assigned CO">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control form-control-user" id="exam_name" name="exam_name"
+                                            placeholder="Exam Name">
                                     </div>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Question 1 Marks">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control form-control-user" id="exam_name" name="section"
+                                            placeholder="Section">
                                     </div>
-                                    <div class="col-sm-1 mb-3" align="center">
-                                        <button type="button" class="btn btn-primary"><i class="fas fa-fw fa-plus"></i></button>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control form-control-user" id="exam_name" name="student_id"
+                                            placeholder="Student Id">
+                                    </div>
+                                </div>
+
+                                    
+                                <div id="q-holder">
+                                    <div class="form-group row">
+                                        <div class="col-sm-3 mb-3 mb-sm-0">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleInputPassword" placeholder="Assigned CO" name="co1">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleRepeatPassword" placeholder="Question 1 Marks" name="mark1">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="exampleRepeatPassword" placeholder="Full Marks" name="max1">
+                                        </div>
+                                        <div class="col-sm-1 mb-3" align="center">
+                                            <button type="button" class="btn btn-primary add-mark" onclick="add_mark();"><i class="fas fa-fw fa-plus"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                                 <div align="center">
-                                    <buttn type="button" class="btn btn-primary btn-user">Submit Mark</buttn>
+                                    <buttn type="button" class="btn btn-primary btn-marks">Submit Mark</buttn>
                                 </div>
                                 
                             </form>
@@ -215,6 +233,36 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+    <script>
+        $i = 2;
+        function add_mark(){
+            console.log('clicked');
+            $(".add-mark").hide();
+            $new = `<div class="form-group row">
+                        <div class="col-sm-3 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user"
+                                id="exampleInputPassword" placeholder="Assigned CO" name="co`+$i+`">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user"
+                                id="exampleRepeatPassword" placeholder="Question `+$i+` Marks" name="mark`+$i+`">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="text" class="form-control form-control-user"
+                                id="exampleRepeatPassword" placeholder="Full Marks" name="max`+$i+`">
+                        </div>
+                        <div class="col-sm-1 mb-3" align="center">
+                            <button type="button" class="btn btn-primary add-mark" onclick="add_mark();"><i class="fas fa-fw fa-plus"></i></button>
+                        </div>
+                    </div>`;
+            $("#q-holder").append($new);
+            $i++;
+        };
+
+        $(".btn-marks").click(function(){
+            $(".marks").submit();
+        });
+    </script>
 
 </body>
 

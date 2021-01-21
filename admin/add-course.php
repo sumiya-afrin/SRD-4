@@ -66,6 +66,18 @@
                     <span>Add Program</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="courses.php">
+                    <i class="fas fa-fw fa-folder-plus"></i>
+                    <span>Courses</span></a>
+            </li>
+            
+            <li class="nav-item active">
+                <a class="nav-link" href="add-course.php">
+                    <i class="fas fa-fw fa-folder-plus"></i>
+                    <span>Add Course</span></a>
+            </li>
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -136,70 +148,48 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form class="user">
+                            <form class="course" action="../php/add-course.php" method="POST">
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-4 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <div class="col-sm-4 mb-4 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="program_id_id" name="program_id"
+                                            placeholder="Program ID">
+                                    </div>
+                                    <div class="col-sm-4 mb-4 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="course_id" name="course_id"
                                             placeholder="Course ID">
                                     </div>
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <div class="col-sm-4 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="course_title" name="course_title"
                                             placeholder="Course Title">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-5 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user"
-                                            id="exampleInputPassword" value="Credit">
+                                            id="credit" name="credit" placeholder="Credit">
                                     </div>
                                     <div class="col-sm-5">
                                         <input type="text" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Total CO">
+                                            id="total-co" name="total-co" placeholder="Total CO">
                                     </div>
                                     <div class="col-sm-2 mb-3" align="center">
-                                        <button type="button" class="btn btn-primary">Generate</button>
+                                        <button type="button" class="btn btn-primary" onclick="generate();">Generate</button>
                                     </div>
                                 </div>
-                                <div class="table-responsive form-group">
+                                <div class="table-responsive form-group co-table" hidden>
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
-                                            <tr>
+                                            <tr id="co-head">
                                                 <th>#</th>
-                                                <th>C01</th>
-                                                <th>C02</th>
-                                                <th>C03</th>
-                                                <th>C04</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>PLO1</td>
-                                                <td align="center">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="plo1-co">
-                                                    </div>
-                                                </td>
-                                                <td align="center">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="plo1-co">
-                                                    </div>
-                                                </td>
-                                                <td align="center">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="plo1-co">
-                                                    </div>
-                                                </td>
-                                                <td align="center">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="plo1-co">
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                        <tbody id="co-body">
+                                            
                                         </tbody>
                                     </table>
                                 </div>
                                 <div align="center">
-                                    <buttn type="button" class="btn btn-primary btn-user">Add Course</buttn>
+                                    <buttn type="button" class="btn btn-primary btn-course">Add Course</buttn>
                                 </div>
                             </form>
                         </div>
@@ -261,6 +251,37 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <script>
+        function generate(){
+            $total_co = $("#total-co").val(); 
+
+            for($i=1; $i<=$total_co; $i++){
+                $new = "<th>CO"+$i+"</th>";
+                $("#co-head").append($new);
+            }
+
+            for($i=1; $i<=15; $i++){
+                $new = `<tr>
+                            <td>PLO`+$i+`</td>`;
+                for($j=1; $j<=$total_co; $j++){
+                    $new += (`<td align="center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="plo`+$i+`-co" value="`+$j+`" name="plo-co`+$i+`[]">
+                                </div>
+                            </td>`);
+                }
+                $new += `</tr>`;
+                $("#co-body").append($new);
+            }
+            
+            $(".co-table").removeAttr("hidden");
+        }
+        $(".btn-course").click(function(){
+           $(".course").submit(); 
+        });
+    </script>
+
 
 </body>
 

@@ -67,6 +67,18 @@
                     <span>Add Program</span></a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="courses.php">
+                    <i class="fas fa-fw fa-folder-plus"></i>
+                    <span>Courses</span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="add-course.php">
+                    <i class="fas fa-fw fa-folder-plus"></i>
+                    <span>Add Course</span></a>
+            </li>
+
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>

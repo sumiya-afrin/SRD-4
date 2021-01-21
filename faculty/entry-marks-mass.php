@@ -123,27 +123,31 @@
 
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form class="user">
+                            <form class="marks" action="../php/add-marks-mass.php" enctype='multipart/form-data' method="POST">
                                 <div class="form-group row">
-                                    <div class="col-sm-4 mb-4 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <div class="col-sm-3 mb-4 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="semester" name="semester"
                                             placeholder="Semester">
                                     </div>
-                                    <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <div class="col-sm-3 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="course_id" name="course_id"
                                             placeholder="Course ID">
                                     </div>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                    <div class="col-sm-3 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" id="section" name="section"
+                                            placeholder="Section">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control form-control-user" id="exam_name" name="exam_name"
                                             placeholder="Exam Name">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="exampleFormControlFile1">Browse Data File</label>
-                                    <input type="file" class="form-conrtol form-control-file" id="exampleFormControlFile1" data-allowed-file-extensions='["csv", "xls"]'>
+                                    <input type="file" class="form-conrtol form-control-file" id="file" data-allowed-file-extensions='["csv", "xls"]' name="file">
                                 </div>
                                 <div align="center">
-                                    <buttn type="button" class="btn btn-primary btn-user">Submit Mark</buttn>
+                                    <buttn type="button" class="btn btn-primary btn-marks">Submit Mark</buttn>
                                 </div>
                                 
                             </form>
@@ -206,6 +210,12 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <script>
+        $(".btn-marks").click(function(){
+            $(".marks").submit();
+        });
+    </script>
 
 </body>
 
