@@ -1,4 +1,5 @@
 <?php
+
     $cPage = basename($_SERVER["SCRIPT_FILENAME"], '.php');
 
     session_start();
@@ -13,12 +14,12 @@
             if(!($cPage = 'entry-marks-mass' || $cPage = 'entry-marks')){
                 header("Location: login.php");
             }
-        }else if(!($_SESSION['role'] == 'student')){
-            if($cPage != 'result'){
+        }else if($_SESSION['role'] == 'student'){
+            if(!($cPage == 'result')){
                 header("Location: login.php");
             }
-        }else{
-            if(!($cPage != 'index')){
+        }else if($_SESSION['role'] == 'hm'){
+            if(!($cPage == 'index' || $cPage == 'plo-achievement' || $cPage == 'progress-views')){
                 header("Location: login.php");
             }
         }
@@ -31,7 +32,7 @@
                     header("Location: faculty/entry-marks.php");
                 }else if($_SESSION['role'] == 'student'){
                     header("Location: student/result.php");
-                }else{
+                }else if($_SESSION['role'] == 'hm'){
                     header("Location: index.php");
                 }
             }

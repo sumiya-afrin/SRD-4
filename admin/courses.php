@@ -1,5 +1,10 @@
 <?php
     require '../php/middleware.php';
+    require '../php/mysql.php';
+
+    $sql = "SELECT * FROM course";
+    $courses = $mysql->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -166,26 +171,31 @@
                                         <tr>
                                             <th>Course ID</th>
                                             <th>Course Title</th>
+                                            <th>Program Id</th>
                                             <th>Credit</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Course ID</th>
                                             <th>Course Title</th>
+                                            <th>Program Id</th>
                                             <th>Credit</th>
-                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>CSE-101</td>
-                                            <td>Introduction to C Programming</td>
-                                            <td>3.00</td>
-                                            <td align="center"><a href="course-single.php" type="button" class="btn btn-info">Open</a></td>
-                                        </tr>
+                                        <?php
+                                            foreach($courses as $c){
+                                                echo "<tr>
+                                                        <td>".$c['id']."</td>
+                                                        <td>".$c['title']."</td>
+                                                        <td>".$c['program_id']."</td>
+                                                        <td>".$c['credit']."</td>
+                                                    </tr>";
+                                            }
+                                        ?>
                                     </tbody>
+                                    <!-- <td align="center"><a href="course-single.php" type="button" class="btn btn-info">Open</a></td> -->
                                 </table>
                             </div>
                         </div>
@@ -232,7 +242,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../php/logout.php">Logout</a>
                 </div>
             </div>
         </div>

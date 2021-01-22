@@ -1,5 +1,10 @@
 <?php
     require '../php/middleware.php';
+    require '../php/mysql.php';
+
+    $sql = "SELECT * FROM user";
+    $users = $mysql->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,8 +167,8 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Department</th>
                                             <th>Role</th>
-                                            <th>Joined</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -171,39 +176,29 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Department</th>
                                             <th>Role</th>
-                                            <th>Joined</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1711010</td>
-                                            <td>Student1</td>
-                                            <td>s001@iub.edu.bd</td>
-                                            <td>Student</td>
-                                            <td>2011/04/25</td>
-                                        </tr>
-                                        <tr>
-                                            <td>F110124</td>
-                                            <td>Faculty1</td>
-                                            <td>f001@iub.edu.bd</td>
-                                            <td>Faculty</td>
-                                            <td>2011/07/25</td>
-                                        </tr>
-                                        <tr>
-                                            <td>A120212</td>
-                                            <td>Admin1</td>
-                                            <td>a001@iub.edu.bd</td>
-                                            <td>Admin</td>
-                                            <td>2009/01/12</td>
-                                        </tr>
-                                        <tr>
-                                            <td>HM1202</td>
-                                            <td>HM1</td>
-                                            <td>hm01@iub.edu.bd</td>
-                                            <td>Higher Management</td>
-                                            <td>2009/01/12</td>
-                                        </tr>
+                                        <?php
+                                            foreach($users as $user){
+                                                echo "<tr>
+                                                    <td>".$user['id']."</td>
+                                                    <td>".$user['first_name']." ".$user['last_name']."</td>
+                                                    <td>s".$user['email']."</td>
+                                                    <td>";
+                                                if($user['role']=='student'){
+                                                    echo $user['program_id'];
+                                                }else{
+                                                    echo "N\A";
+                                                }                                                    
+                                                echo"</td>
+                                                    <td>".$user['role']."</td>
+                                                </tr>";
+                                            }
+                                        ?>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -251,7 +246,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../php/logout.php">Logout</a>
                 </div>
             </div>
         </div>

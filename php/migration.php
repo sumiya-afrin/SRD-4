@@ -43,6 +43,7 @@
     $course = "CREATE TABLE course(
         sl INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
         id VARCHAR(100) NOT NULL UNIQUE,
+        title VARCHAR(250) NOT NULL UNIQUE,
         program_id VARCHAR(100) NOT NULL,
         credit DOUBLE NOT NULL,
         total_co INT NOT NULL,

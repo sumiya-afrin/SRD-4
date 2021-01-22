@@ -1,5 +1,8 @@
 <?php
     require '../php/middleware.php';
+    require '../php/mysql.php';
+    $sql = "SELECT * FROM program";
+    $programs = $mysql->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -161,7 +164,7 @@
                                             <th>ID</th>
                                             <th>Program</th>
                                             <th>School</th>
-                                            <th>Courses</th>
+                                            <th># of Courses</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -173,12 +176,21 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>CSE</td>
-                                            <td>Computer Science and Engineering</td>
-                                            <td>Modern Science</td>
-                                            <td>112</td>
-                                        </tr>
+                                        <?php
+                                            foreach($programs as $prog){
+                                                echo"<tr>
+                                                    <td>".$prog['id']."</td>
+                                                    <td>".$prog['program_name']."</td>
+                                                    <td>".$prog['school']."</td>
+                                                    <td>";
+                                                $sql = "SELECT * FROM course WHERE program_id = '".$prog['id']."'";
+                                                $n = $mysql->query($sql)->num_rows;
+                                                echo $n;
+
+                                                echo"</td>
+                                                </tr>";
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -226,7 +238,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../php/logout.php">Logout</a>
                 </div>
             </div>
         </div>
