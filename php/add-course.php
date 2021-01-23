@@ -7,7 +7,7 @@
     $total_co = $_POST['total-co'];
     $title = $_POST['course_title'];
 
-    $sql = "INSERT INTO course (id, program_id, title credit, total_co) VALUES
+    $sql = "INSERT INTO course (id, program_id, title, credit, total_co) VALUES
             ('$id', '$program_id', '$title', $credit, $total_co)";
     if($mysql->query($sql) == FALSE){
         header("Location: ../admin/add-course.php?failed=1");
