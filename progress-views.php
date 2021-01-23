@@ -1,6 +1,6 @@
 <?php
     require 'php/middleware.php';
-    require 'php/plo-achievement.php';
+    require 'php/progress-views.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,8 +148,6 @@
                                             <div class="dropdown-header">Choose View:</div>
                                             <a class="dropdown-item" onclick="showView(1);">View#1</a>
                                             <a class="dropdown-item" onclick="showView(2);">View#2</a>
-                                            <!-- <div class="dropdown-divider"></div> -->
-                                            <a class="dropdown-item" onclick="showView(3);">View#3</a>
                                         </div>
                                     </div>
                                 </div>
@@ -159,49 +157,45 @@
                                         <canvas id="view1"></canvas>
                                     </div>
                                     <div class="chart" id="chart2">
-                                        <canvas id="view2"></canvas>
-                                    </div>
-                                    <div class="chart" id="chart3">
+                                        <p style="font-size:20px; font-weight:600;" align="center">TOTAL STUDENT: <?php echo $totalS; ?></p>
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>Course</th>
-                                                    <?php
-                                                        for($i=1; $i<=$ploNum; $i++){
-                                                            echo "<th>PLO".$i."</th>";
-                                                        }
-                                                    ?>
+                                                    <th>CO</th>
+                                                    <th>Successfully Achieved</th>
+                                                    <th>Successfully Achieved (%)</th>
+                                                    <th>Failed to Achieve</th>
+                                                    <th>Failed to Achieve (%)</th>
                                                 </tr>
                                             </thead>
                                             <tfoot>
                                                 <tr>
-                                                <th>Course</th>
-                                                    <?php
-                                                        for($i=1; $i<=$ploNum; $i++){
-                                                            echo "<th>PLO".$i."</th>";
-                                                        }
-                                                    ?>
+                                                    <th>CO</th>
+                                                    <th>Successfully Achieved</th>
+                                                    <th>Successfully Achieved (%)</th>
+                                                    <th>Failed to Achieve</th>
+                                                    <th>Failed to Achieve (%)</th>
                                                 </tr>
                                             </tfoot>
                                             <tbody>
                                                 <?php
-                                                    foreach($pMarks as $c => $m){
+                                                    foreach($report['co'] as $i => $v){
                                                         echo "<tr>
-                                                                <td>".$c."</td>";
-                                                        for($i=1; $i<=$ploNum; $i++){
-                                                            if(isset($m[$i])){
-                                                                $r = $m[$i] * 100 / $pTotal[$c][$i];
-                                                                if($r>=40){
-                                                                    echo "<td style='color: green;'>";
-                                                                }else{
-                                                                    echo "<td style='color: red;'>";
-                                                                }
-                                                                echo round($r, 2)."</td>";
-                                                            }else{
-                                                                echo "<td>N/A</td>";
-                                                            }
-                                                        }
-                                                        echo "</tr>";
+                                                            <td>CO".$i."</td>
+                                                            <td>".$v."</td>
+                                                            <td>".round(($v*100/$totalS), 2)."</td>
+                                                            <td>".$totalS-$v."</td>
+                                                            <td>".round((($totalS-$v)*100/$totalS), 2)."</td>
+                                                        </tr>";
+                                                    }
+                                                    foreach($report['plo'] as $i => $v){
+                                                        echo "<tr>
+                                                            <td>PLO".$i."</td>
+                                                            <td>".$v."</td>
+                                                            <td>".round(($v*100/$totalS), 2)."</td>
+                                                            <td>".$totalS-$v."</td>
+                                                            <td>".round((($totalS-$v)*100/$totalS), 2)."</td>
+                                                        </tr>";
                                                     }
                                                 ?>
                                             </tbody>
@@ -226,6 +220,10 @@
                                     <div class="col-sm-12 mb-4 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" name="id"
                                             placeholder="Student ID" required>
+                                    </div>
+                                    <div class="col-sm-12 mb-4 mb-sm-3">
+                                        <input type="text" class="form-control form-control-user" name="c"
+                                            placeholder="CourseId" required>
                                     </div>
                                 </div>
                                 <div align="center">
@@ -307,31 +305,35 @@
 var ctx = document.getElementById('view1').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
-    type: 'bar',
+    type: 'line',
 
     // The data for our dataset
     data: {
         labels: [
             <?php
-                for($i=1; $i<=$ploNum; $i++){
-                    echo "'PLO".$i."', ";
+                foreach($ploProg as $s => $v){
+                    echo "'".$s."', ";
                 }
             ?>
         ],
         datasets: [{
-            label: 'PLO Percentage',
+            label: 'Actual',
             backgroundColor: '#375DCD',
             data: [
                 <?php
-                    for($i=1; $i<=$ploNum; $i++){
-                        if(isset($pfMarks[$i])){
-                            $c = $pfMarks[$i] * 100 / $pfTotal[$i];
-                            echo round($c, 2).", ";
-                        }else{
-                            echo "0, ";
-                        }
+                    foreach($ploProg as $c => $v){
+                        echo $v['com'].", ";
                     }
-                    echo "100";
+                ?>
+            ]
+        },{
+            label: 'Expected',
+            backgroundColor: '#e85c05',
+            data: [
+                <?php
+                    foreach($ploProg as $c => $v){
+                        echo $v['total'].", ";
+                    }
                 ?>
             ]
         }]
@@ -339,56 +341,6 @@ var chart = new Chart(ctx, {
 
     // Configuration options go here
     options: {}
-});
-
-var ctx = document.getElementById('view2').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
-
-    // The data for our dataset
-    data: {
-        labels: [
-            <?php
-                for($i=1; $i<=$ploNum; $i++){
-                    echo "'PLO".$i."', ";
-                }
-            ?>
-        ],
-        datasets: [
-            <?php
-                $i = 1;
-                foreach($pMarks as $c => $m){
-                    echo"{
-                        label: '".$c."',
-                        backgroundColor: '".$color[$i]."',
-                        data: [";
-                    for($i=1; $i<=$ploNum; $i++){
-                        if(isset($m[$i])){
-                            echo $m[$i].", ";
-                        }else{
-                            echo "0, ";
-                        }
-                    }      
-                    echo"]
-                    },"; 
-                    $i++;
-                }           
-            ?>
-        ]
-    },
-
-    // Configuration options go here
-    options: {
-        scales: {
-			xAxes: [{
-				stacked: true,
-			}],
-			yAxes: [{
-				stacked: true
-			}]
-	    }
-    }
 });
 
 </script>

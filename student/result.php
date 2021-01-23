@@ -1,5 +1,6 @@
 <?php
     require '../php/middleware.php';
+    require '../php/result.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -122,21 +123,51 @@
                                     <h6 class="m-0 font-weight-bold text-primary">Student Information</h6>
                                 </div>
                                 <div class="card-body">
+                                <h4>Name: <?php echo $uInfo['first_name'] . " ". $uInfo['last_name'];?></h4>
+                                <h5>ID: <?php echo $uInfo['id'];?></h5>
+                                <h5>Department: <?php echo $uInfo['program_id'];?></h5>
+                                <h5>Email: <?php echo $uInfo['email'];?></h5>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">PLO Chart</h6>
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">PLO Charts</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Choose View:</div>
+                                            <?php
+                                                for($i=1; $i<=$totalPlo; $i++){
+                                                    echo "<a class='dropdown-item' onclick='showView(".$i.");'>View#".$i."</a>";
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-body">
+                                    <?php
+                                        foreach($pMarks as $v){
+                                            foreach($v as $i => $j){
+                                                echo "<div class='chart' id='chart".$i."'>
+                                                        <canvas id='view".$i."'></canvas>
+                                                    </div>";
+                                            }
+                                            break;
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="card shadow mb-4">
+                    <!-- <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Winter 2021</h6>
                         </div>
@@ -187,7 +218,7 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
                 <!-- /.container-fluid -->
@@ -244,6 +275,83 @@
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+
+<script>
+$(".chart").css("display", "none");
+
+function showView($i){
+    $(".chart").css("display", "none");
+    $("#chart"+$i).css("display", "block");
+}
+
+<?php
+foreach($pMarks as $v){
+    foreach($v as $i => $j){
+        echo "var ctx = document.getElementById('view".$i."').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'pie',
+        
+            // The data for our dataset
+            data: {
+                labels: [";
+        foreach($pMarks as $c => $v){
+            echo "'".$c."', ";
+        }         
+        echo"],
+                datasets: [{
+                    backgroundColor: [";
+        $clr = 1;
+        foreach($pMarks as $c => $v){
+            echo "'".$color[$clr%10]."', ";
+            $clr++;
+        }
+        echo"],
+                    data: [";
+        foreach($pMarks as $c => $v){
+            echo $v[$i].", ";
+        }   
+
+        echo "]
+                }]
+            },
+        
+            // Configuration options go here
+            options: {}
+        });";
+    }
+    break;
+}
+?>
+
+var ctx = document.getElementById('view2').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: [
+            
+        ],
+        datasets: [{
+            label: 'PLO Percentage',
+            backgroundColor: '#375DCD',
+            data: [
+                
+            ]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+
+
+</script>
 
 </body>
 
